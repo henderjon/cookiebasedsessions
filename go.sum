@@ -1,0 +1,11 @@
+github.com/golang-jwt/jwt/v4 v4.2.0 h1:besgBTC8w8HjP6NzQdxwKH9Z5oQMZ24ThTrHp3cZ8eU=
+github.com/golang-jwt/jwt/v4 v4.2.0/go.mod h1:/xlHOz8bRuivTWchD4jCa+NbatV+wEUSzwAxVc6locg=
+github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5aqRK0M=
+github.com/google/go-cmp v0.4.0 h1:xsAVV57WRhGj6kEIi8ReJzQlHHqcBYCElAvkovg3B/4=
+github.com/google/go-cmp v0.4.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+github.com/henderjon/durations v0.2.1 h1:+QTgLj5UjXnAaiLiBB8+mNBy/NQuEuSJqdIoJUSljkk=
+github.com/henderjon/durations v0.2.1/go.mod h1:tznEMynLKYgzg2HsaiMPqVlFz6CCu1F0TiDD3guDO5Q=
+github.com/henderjon/oid v1.0.0 h1:7UCvWlpwhcu/fR/0uOOadXu+Y/Q7YgN1zy79HWSlRZU=
+github.com/henderjon/oid v1.0.0/go.mod h1:VT2NVVXNw+IN6TZO+Fk9h0eDi4511In4oEVmbw8qqP4=
+golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=
+golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
