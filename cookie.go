@@ -26,19 +26,19 @@ type CookieParams struct {
 }
 
 // Factory is a set of params used to create cookies.
-type Factory struct {
+type CookieFactory struct {
 	Opts CookieParams
 }
 
 // NewCookieFactory creates a new Factory with the given options.
-func NewCookieFactory(opts CookieParams) Factory {
-	return Factory{
+func NewCookieFactory(opts CookieParams) CookieFactory {
+	return CookieFactory{
 		Opts: opts,
 	}
 }
 
 // CookieFactory is an interface for our Cookie Factory
-type CookieFactory interface {
+type CookieMaker interface {
 	GetCookie(r *http.Request, name string) (*http.Cookie, error)
 	ExpireCookie(c *http.Cookie) *http.Cookie
 	NewCookie(name, value string) *http.Cookie
@@ -47,17 +47,17 @@ type CookieFactory interface {
 }
 
 // GetOpts allows visibility to the underlying options of a Cookie.
-func (f Factory) GetOpts() CookieParams {
+func (f CookieFactory) GetOpts() CookieParams {
 	return f.Opts
 }
 
 // GetCookie returns the http cookie of the given name.
-func (f Factory) GetCookie(r *http.Request, name string) (*http.Cookie, error) {
+func (f CookieFactory) GetCookie(r *http.Request, name string) (*http.Cookie, error) {
 	return r.Cookie(name)
 }
 
 // ExpireCookie returns the http cookie having set it's expiration. This cookie must still be sent to the browser.
-func (f Factory) ExpireCookie(c *http.Cookie) *http.Cookie {
+func (f CookieFactory) ExpireCookie(c *http.Cookie) *http.Cookie {
 	c.MaxAge = -1
 	// without "Expires" older browsers will assume a session cookie ... /shrug
 	// Go's implementation:
@@ -67,15 +67,15 @@ func (f Factory) ExpireCookie(c *http.Cookie) *http.Cookie {
 	return c
 }
 
-// NewCookie creates a cookie with the given name and value and Factory's options.
-func (f Factory) NewCookie(name, value string) *http.Cookie {
+// NewCookie creates a cookie with the given name and value and CookieFactory's options.
+func (f CookieFactory) NewCookie(name, value string) *http.Cookie {
 	f.Opts.Name = name
 	f.Opts.Value = value
 	return NewCookie(f.Opts)
 }
 
 // SetCookie essentially "saves" the cookie by adding it to the request.
-func (f Factory) SetCookie(w http.ResponseWriter, c *http.Cookie) {
+func (f CookieFactory) SetCookie(w http.ResponseWriter, c *http.Cookie) {
 	http.SetCookie(w, c)
 }
 
