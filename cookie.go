@@ -5,15 +5,6 @@ import (
 	"strings"
 )
 
-const (
-	// SameSiteStrict only sends cookies with requests from the exact URL
-	SameSiteStrict = iota
-	// SameSiteLax also sends cookies with user nav requests from the other URLs; default if not specified
-	SameSiteLax
-	// SameSiteNone sends cookies; requires secure
-	SameSiteNone
-)
-
 // CookieParams represents the various bits of information that make up a cookie.
 type CookieParams struct {
 	Name     string
@@ -23,7 +14,7 @@ type CookieParams struct {
 	Domain   string
 	IsSecure bool
 	HTTPOnly bool
-	SameSite int
+	SameSite http.SameSite
 }
 
 // Factory is a set of params used to create cookies.
@@ -91,7 +82,7 @@ func NewCookie(opts CookieParams) *http.Cookie {
 		// @NOTE using a non-secure cookie will not overwrite a secure cookie
 		Secure:   opts.IsSecure,
 		HttpOnly: opts.HTTPOnly,
-		SameSite: setSameSite(opts.SameSite),
+		SameSite: opts.SameSite,
 	}
 }
 
@@ -109,19 +100,7 @@ func NewSimpleCookie(name, value string) *http.Cookie {
 	})
 }
 
-// setSameSite translates an int to a samesite setting.
-func setSameSite(ss int) http.SameSite {
-	switch ss {
-	case SameSiteNone:
-		return http.SameSiteNoneMode
-	case SameSiteLax:
-		return http.SameSiteLaxMode
-	case SameSiteStrict:
-		return http.SameSiteStrictMode
-	}
-	return http.SameSiteDefaultMode
-}
-
+// CookieSameSite takes a string value and return an http.SameSite
 func CookieSameSite(ss string) http.SameSite {
 	ss = strings.ToLower(ss)
 	switch ss {
