@@ -2,6 +2,7 @@ package cookiebasedsessions
 
 import (
 	"net/http"
+	"strings"
 )
 
 const (
@@ -116,6 +117,19 @@ func setSameSite(ss int) http.SameSite {
 	case SameSiteLax:
 		return http.SameSiteLaxMode
 	case SameSiteStrict:
+		return http.SameSiteStrictMode
+	}
+	return http.SameSiteDefaultMode
+}
+
+func CookieSameSite(ss string) http.SameSite {
+	ss = strings.ToLower(ss)
+	switch ss {
+	case "none":
+		return http.SameSiteNoneMode
+	case "lax":
+		return http.SameSiteLaxMode
+	case "strict":
 		return http.SameSiteStrictMode
 	}
 	return http.SameSiteDefaultMode
