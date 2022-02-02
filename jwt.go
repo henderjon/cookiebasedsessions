@@ -46,12 +46,12 @@ func (s *TokenSigner) Unserialize(json string, dest Claims) error {
 	if !token.Valid {
 		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				fmt.Println("That's not even a token")
+				return fmt.Errorf("invalid jwt; malformed; %w", err)
 			} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
 				// Token is either expired or not active yet
-				fmt.Println("Timing is everything")
+				return fmt.Errorf("invalid jwt; expired/inactive; %w", err)
 			} else {
-				fmt.Println("Couldn't handle this token:", err)
+				return fmt.Errorf("invalid jwt; %w", err)
 			}
 		}
 	}
