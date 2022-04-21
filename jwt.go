@@ -12,6 +12,12 @@ type RegisteredClaims = jwt.RegisteredClaims
 // Claims is an alias that avoids asking implimntors to import the parent JWT lib.
 type Claims = jwt.Claims
 
+// NumericDate is an alias that avoids asking implimntors to import the parent JWT lib.
+type NumericDate = jwt.NumericDate
+
+// NewNumericDate is an alias that avoids asking implimntors to import the parent JWT lib.
+var NewNumericDate = jwt.NewNumericDate
+
 // Serializer is some API sugar to simplify making and reading JWTs.
 type Serializer interface {
 	Serialize(claims Claims) (string, error)
